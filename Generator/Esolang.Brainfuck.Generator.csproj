@@ -37,6 +37,10 @@
     <ProjectReference Include="..\Parser\Esolang.Brainfuck.Parser.csproj" />
   </ItemGroup>
 
+  <ItemGroup>    
+    <InternalsVisibleTo Include="Esolang.Brainfuck.Generator.Tests" />
+  </ItemGroup>
+
   <!-- Place analyzer output under analyzers/dotnet/cs in the package. -->
   <ItemGroup>
       <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />

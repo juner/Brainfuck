@@ -9,7 +9,7 @@
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
     <IsPublishable>false</IsPublishable>
-    <AssemblyName>Brainfuck.Generator.Tests</AssemblyName>
+    <AssemblyName>Esolang.Brainfuck.Generator.Tests</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
