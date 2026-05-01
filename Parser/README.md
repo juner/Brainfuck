@@ -2,10 +2,6 @@
 
 Brainfuck source parser.
 
-## Changelog
-
-- [Repository changelog](../CHANGELOG.md)
-
 ## Install
 
 ```bash

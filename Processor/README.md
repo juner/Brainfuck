@@ -2,10 +2,6 @@
 
 Brainfuck processor.
 
-## Changelog
-
-- [Repository changelog](../CHANGELOG.md)
-
 ## Install
 
 ```bash
