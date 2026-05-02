@@ -39,7 +39,6 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="$([System.String]::Copy('$(MSBuildProjectName)').EndsWith('.Tests')) == 'True'">
-    <RunSettingsFilePath>$(MSBuildProjectDirectory)\..\coverlet.collect.runsettings</RunSettingsFilePath>
     <TestResultsFolderPath>$(MSBuildProjectDirectory)\TestResults</TestResultsFolderPath>
     <NoWarn>$(NoWarn);RS1035</NoWarn>
   </PropertyGroup>

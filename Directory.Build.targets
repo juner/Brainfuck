@@ -26,4 +26,8 @@
   <Target Name="TestResultCleaning" AfterTargets="Clean" Condition="'$(IsTestProject)' == 'true'">
     <RemoveDir Directories="$(TestResultsFolderPath)" Condition="Exists('$(TestResultsFolderPath)')" />
   </Target>
+
+  <PropertyGroup Condition="'$(IsTestProject)' == 'true' and '$(TargetFrameworkIdentifier)' != '.NETFramework'">
+    <RunSettingsFilePath>$(MSBuildProjectDirectory)\..\coverlet.collect.runsettings</RunSettingsFilePath>
+  </PropertyGroup>
 </Project>
