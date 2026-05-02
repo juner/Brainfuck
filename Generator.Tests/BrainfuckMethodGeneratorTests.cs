@@ -45,6 +45,7 @@ public class MethodGeneratorTests
                     .Append(typeof(Span<>).Assembly.Location)
                     .Append(typeof(System.Runtime.CompilerServices.Unsafe).Assembly.Location)
                     .Append(typeof(ValueTask<>).Assembly.Location)
+                    .Append(typeof(IAsyncEnumerable<>).Assembly.Location)
 #else
                     .Append(throw new InvalidOperationException())
 #endif
@@ -75,16 +76,16 @@ public class MethodGeneratorTests
             "NET5_0_OR_GREATER",
 #endif
 #if NET7_0_OR_GREATER
-            "NET7_0_OR_GREATER"
+            "NET7_0_OR_GREATER",
 #endif
-#if NET8_0_OR_GRATER
-            "NET8_0_OR_GREATER"
+#if NET8_0_OR_GREATER
+            "NET8_0_OR_GREATER",
 #endif
-#if NET9_0_OR_GRATER
-            "NET9_0_OR_GREATER"
+#if NET9_0_OR_GREATER
+            "NET9_0_OR_GREATER",
 #endif
-#if NET10_0_OR_GRATER
-            "NET10_0_OR_GREATER"
+#if NET10_0_OR_GREATER
+            "NET10_0_OR_GREATER",
 #endif
         ];
 
