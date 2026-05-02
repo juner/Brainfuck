@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks Condition="'$(OS)' == 'Windows_NT'">net48;net8.0;net9.0;net10.0</TargetFrameworks>
+    <TargetFrameworks Condition="'$(OS)' == 'Windows_NT'">net481;net8.0;net9.0;net10.0</TargetFrameworks>
     <TargetFrameworks Condition="'$(OS)' != 'Windows_NT'">net8.0;net9.0;net10.0</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
@@ -30,7 +30,7 @@
     <ProjectReference Include="..\Generator\Esolang.Brainfuck.Generator.csproj" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' != 'net48'">
+  <ItemGroup Condition="'$(TargetFramework)' != 'net481'">
     <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage" />
   </ItemGroup>
 

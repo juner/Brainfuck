@@ -17,6 +17,7 @@ The format is based on Keep a Changelog.
 - Generator: Diagnostic messages and ID structure unified with the Piet project.
 - Generator: Clarified signature validation and combination rules.
 - All READMEs: Rewritten in English, reorganized, and expanded with install, usage, and API details.
+- Build/package baseline: unified repository `Version` to `1.0.0`, unified `LangVersion` to C# 14, and incremented `AssemblyVersion` / `FileVersion` to `0.1.1.101`.
 
 ### Fixed
 - Generator: Improved accuracy of duplicate/invalid input/output parameter detection.
