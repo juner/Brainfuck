@@ -517,6 +517,8 @@ public class MethodGeneratorTests
             yield return DiagnoticsTest(["BF0006"], "6_6.", "string", "System.IO.TextWriter output");
             // BF0003: Invalid parameter (e.g., int - unsupported)
             yield return DiagnoticsTest(["BF0003"], "1+", "void", "int invalidParam");
+            // BF0003: Invalid parametr (e.g., string? - unsupported)
+            yield return DiagnoticsTest(["BF0003"], "7_7", "void", "string? input", options: "#nullable enable"); // No diagnostics expected: nullable input is allowed even if source has no input command
             static object?[] DiagnoticsTest(string[] expected, string source, string returnType, string parameters = "", string options = "", int sourceCount = 3)
                 => [expected, source, returnType, parameters, options, sourceCount];
         }
@@ -527,6 +529,7 @@ public class MethodGeneratorTests
     public void DiagnoticsTest(string[] expected, string source, string returnType, string parameters, string options, int sourceCount)
     {
         source = $$"""
+
         using Esolang.Brainfuck;
         namespace TestProject;
         {{options}}
