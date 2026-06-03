@@ -110,15 +110,36 @@ jobs:
             exit 1
           fi
           shopt -s nullglob
-          # AOT packages + Libs
-          for pkg in artifacts/aot/*.nupkg artifacts/nuget/*.nupkg; do
-            case "$pkg" in
-              *.snupkg) continue ;;
-            esac
+          push_pair() {
+            local pkg="$1"
             dotnet nuget push "$pkg" --api-key "$NUGET_API_KEY" --source https://api.nuget.org/v3/index.json --skip-duplicate
+            local snupkg="${pkg%.nupkg}.snupkg"
+            if [ -f "$snupkg" ]; then
+              dotnet nuget push "$snupkg" --api-key "$NUGET_API_KEY" --source https://api.nuget.org/v3/index.json --skip-duplicate
+            fi
+          }
+          # 1. Lib packages (Generator, Parser, Processor) - managed, have snupkg
+          for pkg in artifacts/nuget/*.nupkg; do
+            push_pair "$pkg"
           done
-          for symbol_pkg in artifacts/aot/*.snupkg artifacts/nuget/*.snupkg; do
-            dotnet nuget push "$symbol_pkg" --api-key "$NUGET_API_KEY" --source https://api.nuget.org/v3/index.json --skip-duplicate
+          # 1. RID-specific AOT packages (win-x64, linux-x64, osx-*, etc.)
+          for pkg in artifacts/aot/*.nupkg; do
+            [[ "$pkg" =~ \.(win|linux|osx|freebsd|android|ios)- ]] || continue
+            push_pair "$pkg"
+          done
+          # 2. any/portable package
+          for pkg in artifacts/aot/*.nupkg; do
+            [[ "$pkg" == *".any."* ]] || continue
+            push_pair "$pkg"
+          done
+          # 3. no-RID meta package + lib packages (Generator, Parser, Processor)
+          for pkg in artifacts/aot/*.nupkg; do
+            [[ "$pkg" =~ \.(win|linux|osx|freebsd|android|ios)- ]] && continue
+            [[ "$pkg" == *".any."* ]] && continue
+            push_pair "$pkg"
+          done
+          for pkg in artifacts/nuget/*.nupkg; do
+            push_pair "$pkg"
           done
 
       - name: Publish to GitHub Packages

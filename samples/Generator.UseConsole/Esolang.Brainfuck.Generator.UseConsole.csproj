@@ -19,11 +19,13 @@
     <ProjectReference Include="..\..\Generator\Esolang.Brainfuck.Generator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
-  <ItemGroup>
-    <!-- Keep local development aligned with the packed analyzer layout: the generator is referenced once,
-         while its non-analyzer dependencies are provided from the same build output folder. -->
-   <Analyzer Include="..\..\Generator\bin\$(Configuration)\netstandard2.0\*.dll" 
-             Exclude="..\..\Generator\bin\$(Configuration)\netstandard2.0\Esolang.Brainfuck.Generator.dll" />
-  </ItemGroup>
+  <Target Name="IncludeAnalyzerDependencies" AfterTargets="ResolveProjectReferences">
+    <ItemGroup>
+      <!-- Keep local development aligned with the packed analyzer layout: the generator is referenced once,
+           while its non-analyzer dependencies are provided from the same build output folder. -->
+     <Analyzer Include="..\..\Generator\bin\$(Configuration)\netstandard2.0\*.dll" 
+               Exclude="..\..\Generator\bin\$(Configuration)\netstandard2.0\Esolang.Brainfuck.Generator.dll" />
+    </ItemGroup>
+  </Target>
 
 </Project>

@@ -1,7 +1,4 @@
 <Solution>
-  <Folder Name="/Parser/" />
-  <Folder Name="/samples/" />
-  <Project Path="samples/Generator.UseConsole/Esolang.Brainfuck.Generator.UseConsole.csproj" />
   <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />
     <File Path="Directory.Build.props" />
@@ -11,6 +8,7 @@
   </Folder>
   <Project Path="Generator.Tests/Esolang.Brainfuck.Generator.Tests.csproj" />
   <Project Path="Generator/Esolang.Brainfuck.Generator.csproj" />
+  <Project Path="samples/Generator.UseConsole/Esolang.Brainfuck.Generator.UseConsole.csproj" />
   <Project Path="Interpreter/Esolang.Brainfuck.Interpreter.csproj" />
   <Project Path="Interpreter.Tests/Esolang.Brainfuck.Interpreter.Tests.csproj" />
   <Project Path="Parser.Tests/Esolang.Brainfuck.Parser.Tests.csproj" />

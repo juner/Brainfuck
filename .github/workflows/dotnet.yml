@@ -58,45 +58,43 @@ jobs:
         rm -rf .artifacts/tool-e2e
         mkdir -p .artifacts/tool-e2e
 
-        dotnet pack Interpreter/Esolang.Brainfuck.Interpreter.csproj -r "$rid" -o .artifacts/tool-e2e
+        dotnet pack Interpreter/Esolang.Brainfuck.Interpreter.csproj -r "$rid" -p:ToolPackageRuntimeIdentifiers= -o .artifacts/tool-e2e
 
-        nupkg_path=$(find .artifacts/tool-e2e -maxdepth 1 -type f -name "dotnet-brainfuck.$rid.*.nupkg" | head -n 1)
+        nupkg_path=$(find .artifacts/tool-e2e -maxdepth 1 -type f -name "dotnet-brainfuck.*.nupkg" ! -name "*.snupkg" | head -n 1)
         if [ -z "$nupkg_path" ]; then
-          echo "Failed to find dotnet-brainfuck $rid nupkg in .artifacts/tool-e2e"
+          echo "Failed to find dotnet-brainfuck nupkg in .artifacts/tool-e2e"
           exit 1
         fi
         nupkg_name=$(basename "$nupkg_path")
-        tool_version=${nupkg_name#dotnet-brainfuck."$rid".}
+        tool_version=${nupkg_name#dotnet-brainfuck.}
         tool_version=${tool_version%.nupkg}
         echo "Detected tool version: $tool_version"
 
+        dotnet new tool-manifest --force
         dotnet tool install dotnet-brainfuck \
-          --tool-path .artifacts/tool-e2e/path \
           --add-source .artifacts/tool-e2e \
           --version "$tool_version"
 
-        # On Windows, the executable has .exe extension
-        exe_path="./.artifacts/tool-e2e/path/dotnet-brainfuck"
-        if [ -f "$exe_path.exe" ]; then
-          exe_path="$exe_path.exe"
-        fi
-
-        $exe_path --help
-        output1=$($exe_path "++++++[>++++++++<-]++++++++++[>.+<-]")
+        dotnet tool run dotnet-brainfuck -- --help
+        output1=$(dotnet tool run dotnet-brainfuck -- "++++++[>++++++++<-]++++++++++[>.+<-]")
         echo "$output1"
         test "$output1" = "0123456789"
 
-        output2=$($exe_path parse "++>--")
+        output2=$(dotnet tool run dotnet-brainfuck -- parse "++>--")
         echo "$output2"
         echo "$output2" | grep -q "IncrementCurrent"
         echo "$output2" | grep -q "IncrementPointer"
 
-        dotnet tool uninstall dotnet-brainfuck --tool-path .artifacts/tool-e2e/path
+        dotnet tool uninstall dotnet-brainfuck
     
     - name: Pack
       if: ${{ matrix.os == 'ubuntu-latest' }}
       run: |
-        dotnet pack -o artifacts/
+        dotnet pack Generator/Esolang.Brainfuck.Generator.csproj -o artifacts/
+        dotnet pack Parser/Esolang.Brainfuck.Parser.csproj -o artifacts/
+        dotnet pack Processor/Esolang.Brainfuck.Processor.csproj -o artifacts/
+        dotnet pack Interpreter/Esolang.Brainfuck.Interpreter.csproj -p:ToolPackageRuntimeIdentifiers= -o artifacts/
+        dotnet pack Interpreter/Esolang.Brainfuck.Interpreter.csproj -p:PublishAot=false -p:ToolPackageRuntimeIdentifiers="" -o artifacts/
       
     - uses: actions/upload-artifact@v7
       if: ${{ matrix.os == 'ubuntu-latest' }}
