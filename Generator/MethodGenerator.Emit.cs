@@ -1081,11 +1081,3 @@ readonly record struct ParameterOptions(
 
 }
 
-enum ParameterType
-{
-    None = default,
-    String,
-    ByteArray,
-    ReadOnlyMemoryChar,
-
-}

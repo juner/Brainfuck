@@ -33,7 +33,7 @@ For detailed Generator signatures and patterns, see:
 
 | Attribute Argument | `partial` Method Parameters (Input) | `partial` Method Return Types (Output) |
 | :--- | :--- | :--- |
-| `string` (Source) | `TextReader?`, `PipeReader?`, `byte[]?` | `void`, `string`, `string?`, `int`, `Task`, `ValueTask`, `IEnumerable<byte>`, `IAsyncEnumerable<byte>` |
+| `string` (Source) | `string`, `TextReader`, `PipeReader` | `void`, `string`, `string?`, `int`, `Task`, `ValueTask`, `IEnumerable<byte>`, `IAsyncEnumerable<byte>` |
 
 For runnable examples, see:
 
